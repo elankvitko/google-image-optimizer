@@ -1,1 +1,42 @@
-<h1>Welcome</h1>
+<div class="col-md-12">
+  <h1 style="text-align:center;margin-top:30px;margin-bottom:50px;">Bullion Exchanges Imaging Tool</h1>
+
+  <div class="col-md-8 col-sm-12" style="margin:0 auto;">
+    <div class="hold-uploads">
+      <%= form_for( @upload, html: { multipart: true, class: "dropzone", id: "myDropzoneUploadArea" } ) do |f|  %>
+        <div class="fallback">
+          <%= f.file_field :file_part %><br>
+          <%= f.submit "Upload" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="num-hold-uploaded-items" style="margin-top:30px;text-align:center;">
+      <h3>Files Uploaded: <span class="num-hold-items">0</span></h3>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  Dropzone.autoDiscover = false;
+  $( document ).ready( function() {
+    var myDropzone = new Dropzone( "#myDropzoneUploadArea", {
+      acceptedFiles: '.jpeg,.jpg,.zip,.pdf,.rar,.png',
+      timeout: 300000,
+    });
+
+    myDropzone.on( "success", function( file ) {
+      var numProp = $( "#num-hold-uploaded-items .num-hold-items" )[ 0 ];
+      var number = parseInt( numProp.innerText );
+      number++
+      numProp.innerText = number;
+    });
+
+    myDropzone.on( "complete", function ( file ) {
+      if ( this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 ) {
+        $( "#num-hold-uploaded-items" ).append( "<a href='/get-zip' class='btn btn-primary'>Download Zip</a>" );
+      };
+    });
+  })
+</script>
