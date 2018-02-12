@@ -35,7 +35,7 @@
 
     myDropzone.on( "complete", function ( file ) {
       if ( this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 ) {
-        $( "#num-hold-uploaded-items" ).append( "<a href='/get-zip' class='btn btn-primary'>Download Zip</a>" );
+        $( "#num-hold-uploaded-items" ).append( "<a href='/get-zip' class='btn btn-primary'>Send Notification</a>" );
       };
     });
   })

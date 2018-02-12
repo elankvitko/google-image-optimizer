@@ -23,26 +23,8 @@ class UploadsController < ApplicationController
   end
 
   def download_zip
-    require 'zip'
-    bucket = aws_bucket.bucket( "marketing-imaging" )
-    files = Upload.all.map { | file | file.file_part.split( "/" )[ -1 ] }
-
-    files.each do | file_name |
-      file_obj = bucket.object( file_name )
-      file_obj.get( response_target: Rails.root.join( "public/tmp/#{ file_name }" ) )
-    end
-
-    sleep 5
-    FileUtils.rm( Rails.root.join( "public/tmp/optimized.zip" ) ) if File.exist?( Rails.root.join( "public/tmp/optimized.zip" ) )
-
-    Zip::File.open( Rails.root.join( "public/tmp/optimized.zip" ), Zip::File::CREATE ) do | zipfile |
-      files.each do | filename |
-        zipfile.add( filename, Rails.root.join( "public/tmp/#{ filename }" ) )
-      end
-    end
-
-    Upload.destroy_all
-    files.each { | filename | FileUtils.rm( Rails.root.join( "public/tmp/#{ filename }" ) ) }
-    send_file Rails.root.join( "public/tmp/optimized.zip" )
+    client = Slack::Web::Client.new
+    client.chat_postMessage( channel: '#it-requests', text: 'Please check new optimized images', username: "Ekaterina Ovodova" )
+    redirect_to root_path
   end
 end

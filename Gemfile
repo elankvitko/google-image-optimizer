@@ -36,6 +36,7 @@ gem 'jquery-rails'
 gem "mini_magick"
 gem 'aws-sdk'
 gem 'rubyzip'
+gem 'slack-ruby-client'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
