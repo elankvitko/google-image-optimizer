@@ -36,7 +36,7 @@
       numProp.innerText = number;
       var name = file.name.split( ' ' ).join( '%20' );
       var link = "https://s3.us-east-2.amazonaws.com/marketing-imaging/min" + "-" + name;
-      $( "#links-holder-dl" ).append( "<a href=" + link + " class='trigger-link'>Download " + file.name + "</a>" );
+      $( "#links-holder-dl" ).append( "<a href=" + link + " target='_blank' class='trigger-link'>Download " + file.name + "</a>" );
     });
 
     myDropzone.on( "complete", function ( file ) {
